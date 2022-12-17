@@ -1,0 +1,204 @@
+/*
+- main color: ebc3ec
+*/
+
+.background-transparent {
+    -fx-background-color: transparent;
+}
+.background-hover:hover{
+    -fx-background-color: #eaeaea;
+    -fx-background-radius: 10%;
+}
+.background-hover-circle:hover{
+    -fx-background-color: #eaeaea;
+    -fx-background-radius: 100%;
+}
+.aTab {
+    -fx-min-width: 80.0;
+    -fx-border-radius: 4 4 0 0;
+    -fx-background-radius: 4 4 0 0;
+    -fx-background-color: white;
+    /*-fx-background-image: url("../../../../../images/three-points.png");*/
+    /* bug */
+}
+.aTab:hover {
+    -fx-background-color: #f4f1f6;
+}
+.aTab:focused {
+    -fx-border-color: none;
+    -fx-background-color: none;
+}
+.urlBox {
+    /*-fx-border-radius: 15 15 15 15;*/
+    /*-fx-border-color: #ebc3ec;*/
+    -fx-background-color: transparent;
+}
+.hBox-search {
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: white;
+    -fx-padding: 0 8 0 8;
+    -fx-border-color: #e1e1e1;
+    -fx-border-width: 2;
+}
+.vBox {
+    /*-fx-pref-width: 40.0;*/
+    /*-fx-pref-height: inherit;*/
+    -fx-border-width: 0 2 0 0;
+    -fx-border-color: #ebc3ec;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(three-pass-box, grey, 15, 0, 0, 0);
+    -fx-spacing: 20.0;
+    -fx-background-color: transparent;
+}
+.addUrlShortcut {
+    -fx-background-color: transparent;
+    -fx-border-color: #bebebe;
+    -fx-border-radius: 100%;
+    -fx-padding: 5 5 5 5;
+    -fx-border-insets: 15 0 0 3;
+    -fx-background-insets: 0 0 0 0;
+    /*-fx-background-radius: 100%;*/
+    /*-fx-border-insets: 10.0;*/
+    /*-fx-background-insets: 10.0;*/
+}
+.addUrlShortcut:hover {
+    -fx-border-color: #d066f5;
+}
+/*.goButton {*/
+/*    -fx-border-color: #ecd6f1;*/
+/*    -fx-border-radius: 6.0;*/
+/*    -fx-border-width: 2.0;*/
+/*}*/
+
+/*choose account */
+.accountIcon {
+    -fx-background-color: transparent;
+    -fx-border-radius: 100%;
+    -fx-border-color: #dea5ea;
+    -fx-padding: 0;
+}
+.anchor-chooseAccount {
+    -fx-background-radius: 20;
+    /*-fx-background-color: #e8e8e8;*/
+    -fx-border-radius: 20;
+    -fx-border-color: #b0b0b0;
+    -fx-border-width: 2;
+    -fx-border-style: solid outside;
+    -fx-background-color: white;
+}
+.anchor-chooseAccount .label-radius {
+    -fx-background-color: #e5e5e5;
+    -fx-background-radius: 20 20 0 0;
+}
+.vBox-chooseAccount {
+    -fx-padding: 5 5 5 15;
+    -fx-background-color: inherit;
+    -fx-spacing: 5;
+    -fx-background-radius: 0 0 20 20;
+}
+.vBox-chooseAccount .label {
+    -fx-min-height: 26;
+    -fx-text-fill: #3a3a3a;
+    -fx-font-family: "Arial Rounded MT Bold";
+}
+.vBox-chooseAccount .hBox {
+    -fx-padding: 3;
+    -fx-spacing: 10;
+}
+.vBox-chooseAccount .hBox:hover {
+    -fx-background-color: #c0c0c0;
+}
+.vBox-chooseAccount .addAccountIcon {
+    -fx-font-weight: 700;
+    -fx-font-size: 20;
+    -fx-pref-width: 24;
+    -fx-pref-height: 24;
+    -fx-padding: 0 0 2 0;
+}
+.border-radius-20 {
+    -fx-background-radius: 20 20 0 0 ;
+    -fx-border-radius: 20 20 0 0;
+}
+/*end choose account*/
+
+.searchSuggestList .list-cell{
+    -fx-background-color: transparent;
+}
+.searchSuggestList .list-cell:hover {
+    -fx-background-color: #eaeaea;
+}
+
+.hover-label {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #b0b0b0;
+    -fx-border-width: 1.5;
+    -fx-border-style: solid outside;
+    -fx-background-color: white;
+    -fx-padding: 5;
+    visibility: false;
+}
+
+
+/*.chooseAccountListview {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-text-fill: #ffffff;*/
+/*    -fx-font-weight: 600;*/
+/*    -fx-font-size: 15;*/
+/*    -fx-border-width: 0;*/
+/*}*/
+/*.chooseAccountListview .list-cell{*/
+/*    -fx-background-color: transparent;*/
+/*    !*-fx-border-style: 2 2 0 0;*!*/
+/*    -fx-border-color: #c2c2c2;*/
+/*    -fx-text-fill: #cdcdcd;*/
+/*    -fx-font-size: 12;*/
+/*}*/
+/*.chooseAccountListview .list-cell:hover{*/
+/*    -fx-background-color: #c2c2c2;*/
+/*}*/
+
+
+/*.list-view .list-cell:odd {*/
+/*    -fx-background-color: red;*/
+/*}*/
+
+/*.list-view .list-cell:even {*/
+/*    -fx-background-color: blue;*/
+/*}*/
+
+/*.list-view .list-cell:selected:odd,*/
+/*.list-view .list-cell:selected:even {*/
+/*    -fx-background-color: -fx-background;*/
+/*}*/
+
+/*.setting-icon {*/
+/*    !*-fx-background-image: url("../../../../../images/settings.png");*!*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+/*.reload-icon {*/
+/*    -fx-background-image: url("../../../../../src/images/home.png");*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+/*.back-icon {*/
+/*    -fx-background-image: url("../../../images/arrow-back.png");*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-pref-width: 20;*/
+/*    -fx-pref-height: 20;*/
+/*}*/
+/*.forward-icon {*/
+/*    -fx-background-image: url('arrow-next.png');*/
+/*    !*-fx-background-color: #bdedbb;*!*/
+/*}*/
+/*.homeBtn-icon {*/
+/*    -fx-background-image: url('images/home.png');*/
+/*    -fx-background-color: #abcdaa;*/
+/*    -fx-pref-width: 20;*/
+/*    -fx-pref-height: 20;*/
+/*}*/
+
+/*.newTabBtn {*/
+/*    -fx-font: System Bold;*/
+/*    -fx-font-size: 12;*/
+/*}*/
