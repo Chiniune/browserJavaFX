@@ -45,7 +45,7 @@
     /*-fx-pref-width: 40.0;*/
     /*-fx-pref-height: inherit;*/
     -fx-border-width: 0 2 0 0;
-    -fx-border-color: #ebc3ec;
+    /*-fx-border-color: #ebc3ec;*/
     -fx-padding: 5;
     -fx-effect: dropshadow(three-pass-box, grey, 15, 0, 0, 0);
     -fx-spacing: 20.0;
@@ -56,7 +56,7 @@
     -fx-border-color: #bebebe;
     -fx-border-radius: 100%;
     -fx-padding: 5 5 5 5;
-    -fx-border-insets: 15 0 0 3;
+    -fx-border-insets: 10 0 0 1;
     -fx-background-insets: 0 0 0 0;
     /*-fx-background-radius: 100%;*/
     /*-fx-border-insets: 10.0;*/
@@ -121,7 +121,10 @@
     -fx-border-radius: 20 20 0 0;
 }
 /*end choose account*/
-
+.searchSuggestList{
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+}
 .searchSuggestList .list-cell{
     -fx-background-color: transparent;
 }
@@ -137,6 +140,15 @@
     -fx-border-style: solid outside;
     -fx-background-color: white;
     -fx-padding: 5;
+    visibility: false;
+}
+.anchor-search{
+    -fx-padding: 10;
+    -fx-border-style: outside;
+    -fx-border-radius: 15;
+    -fx-background-radius: 10;
+    -fx-background-color: white;
+    -fx-border-color: #b0b0b0;
     visibility: false;
 }
 

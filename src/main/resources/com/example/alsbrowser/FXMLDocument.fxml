@@ -9,11 +9,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.alsbrowser.MainController">
     <children>
-        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabMaxHeight="25" tabMinHeight="25" tabMaxWidth="120.0" tabMinWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabMaxHeight="25" tabMaxWidth="120.0" tabMinHeight="25" tabMinWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Button fx:id="newTabBtn" layoutY="60.0" mnemonicParsing="false" onAction="#newTabFunction" prefHeight="15.0" prefWidth="23.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="5.0">
          <styleClass>
             <String fx:value="background-transparent" />
-            <String fx:value="background-hover-circle"/>
+            <String fx:value="background-hover-circle" />
          </styleClass>
         </Button>
         <MenuBar prefHeight="38.0" prefWidth="130.0" styleClass="background-transparent" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.5">
@@ -83,11 +83,6 @@
         <!--                onAction="#downloadButtonFunction" onMouseEntered="#downloadBtnHover"-->
         <!--                onMouseExited="#downloadBtnHoverExit" styleClass="background-transparent" AnchorPane.rightAnchor="200.0"-->
         <!--                AnchorPane.topAnchor="35.0"/>-->
-<!--        lable hover-->
-        <Label fx:id="homeLabel" text="Home" styleClass="hover-label" AnchorPane.leftAnchor="130" AnchorPane.topAnchor="68.0" />
-        <Label fx:id="reloadLabel" text="Reload" styleClass="hover-label" AnchorPane.leftAnchor="100" AnchorPane.topAnchor="68.0" />
-        <Label fx:id="backLabel" text="Back" styleClass="hover-label"  AnchorPane.leftAnchor="30" AnchorPane.topAnchor="68.0" />
-        <Label fx:id="forwardLabel" text="Forward" styleClass="hover-label" AnchorPane.leftAnchor="60" AnchorPane.topAnchor="68.0" />
 
         <Button fx:id="bookmarkButton" layoutX="683.0" layoutY="45.0" mnemonicParsing="false" onAction="#bookmarkButtonFunction" onMouseEntered="#bookmarkBtnHover" onMouseExited="#bookmarkBtnHoverExit" styleClass="background-transparent" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="35.0" />
         <Label fx:id="bookmarkLabel" layoutX="726.0" layoutY="70.0" style="-fx-background-color: White;" AnchorPane.rightAnchor="292.0" AnchorPane.topAnchor="68.0" />
@@ -168,16 +163,43 @@
         </AnchorPane>
 
 <!--        search suggest list-->
-        <ListView fx:id="searchSuggestList" layoutY="80.0" maxHeight="600.0" prefHeight="30.0" prefWidth="695.0" styleClass="searchSuggestList" visible="false">
-            <padding>
-                <Insets left="10.0" />
-            </padding>
-        </ListView>
-<!--        vbox list shortcut -->
-        <VBox fx:id="vBoxShortcut" layoutY="68" prefHeight="500.0" prefWidth="40.0" styleClass="vBox" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="63.0" AnchorPane.leftAnchor="0.0">
-            <children>
-            </children>
-        </VBox>
+      <AnchorPane fx:id="searchAnchor" layoutX="165.0" layoutY="35.0" styleClass="anchor-search">
+         <children>
+            <HBox spacing="5.0" layoutX="10" layoutY="10">
+               <children>
+                  <TextField fx:id="txtTypeUrlOnAnchor" prefWidth="700.0">
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </TextField>
+                  <Button fx:id="searchBtn" mnemonicParsing="false" styleClass="background-transparent"/>
+               </children>
+            </HBox>
+              <ListView fx:id="searchSuggestList" layoutY="33.0" prefWidth="720.0" styleClass="searchSuggestList">
+                  <padding>
+                      <Insets left="10.0" />
+                  </padding>
+              </ListView>
+         </children>
+      </AnchorPane>
+
+        <!--         list shortcut -->
+      <ScrollPane hbarPolicy="NEVER" prefWidth="45.0" style="-fx-padding: 0" styleClass="vBox" vmax="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="75.0">
+         <content>
+             <VBox fx:id="vBoxShortcut" prefHeight="500.0" prefWidth="40.0" styleClass="vBox" AnchorPane.bottomAnchor="0.0" />
+<!--                 <children>-->
+<!--                 </children>-->
+<!--             </VBox>-->
+         </content>
+      </ScrollPane>
+
+
+        <!--        lable hover-->
+        <Label fx:id="homeLabel" styleClass="hover-label" text="Home" AnchorPane.leftAnchor="130" AnchorPane.topAnchor="68.0" />
+        <Label fx:id="reloadLabel" styleClass="hover-label" text="Reload" AnchorPane.leftAnchor="100" AnchorPane.topAnchor="68.0" />
+        <Label fx:id="backLabel" styleClass="hover-label" text="Back" AnchorPane.leftAnchor="30" AnchorPane.topAnchor="68.0" />
+        <Label fx:id="forwardLabel" styleClass="hover-label" text="Forward" AnchorPane.leftAnchor="60" AnchorPane.topAnchor="68.0" />
+
 
     </children>
 </AnchorPane>

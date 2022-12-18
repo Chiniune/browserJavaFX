@@ -91,6 +91,8 @@ public class MainController implements Initializable {
     // shortcut list
     @FXML
     private VBox vBoxShortcut;
+    @FXML
+    private Button searchBtn;
 
     private Button addUrlShortcut;
 
@@ -431,6 +433,14 @@ public class MainController implements Initializable {
         iv3.setFitWidth(12);
         newTabBtn.setGraphic(iv3);
 
+        // button search on anchor
+        ImageView ivBtnSearch = new ImageView();
+        Image imgBtnSearch= new Image("file:src/images/search.png");
+        ivBtnSearch.setImage(imgBtnSearch);
+        ivBtnSearch.setFitHeight(16);
+        ivBtnSearch.setFitWidth(16);
+        searchBtn.setGraphic(ivBtnSearch);
+
         //start account modify
         Image img = new Image("file:src/images/Jimin.png", false);
         accountIcon.setFill(new ImagePattern(img));
@@ -546,7 +556,7 @@ public class MainController implements Initializable {
 //        while (true) {
 //            searchSuggestList.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
 //                if (!isNowFocused) {
-//                    searchSuggestList.setVisible(false);
+//                    searchAnchor.setVisible(false);
 //                }
 //            });
 //        }
@@ -601,6 +611,7 @@ public class MainController implements Initializable {
 
         TextField txtUrl = new TextField();
         txtUrl.setPromptText("Enter your url here");
+        txtUrl.requestFocus();
 
         Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
         addButton.setDisable(true);
@@ -632,14 +643,14 @@ public class MainController implements Initializable {
         btn.getStyleClass().add("background-hover");
         btn.setId(String.valueOf(urlList.indexOf(url)));
         btn.getStyleClass().add("background-transparent");
-        ImageView iv = new ImageView();
-        Image img;
-        if (url.startsWith("https://") || url.startsWith("http://") || url.contains(".")) {
-            img = new Image("https://www.google.com/s2/favicons?sz=64&domain_url=" + url);
-        } else {
-            img = new Image("https://www.google.com/s2/favicons?sz=64&domain_url=google.com");
-        }
-        iv.setImage(img);
+        ImageView iv = loadFavicon(url);
+//        Image img;
+//        if (url.startsWith("https://") || url.startsWith("http://") || url.contains(".")) {
+//            img = new Image("https://www.google.com/s2/favicons?sz=64&domain_url=" + url);
+//        } else {
+//            img = new Image("https://www.google.com/s2/favicons?sz=64&domain_url=google.com");
+//        }
+//        iv.setImage(img);
         iv.setFitHeight(21);
         iv.setFitWidth(21);
         btn.setGraphic(iv);
@@ -704,10 +715,32 @@ public class MainController implements Initializable {
     }
 
 
+    public boolean isValidUrl(String url)
+    {
+        /* Try creating a valid URL */
+        try {
+            new URL(url).toURI();
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
     public ImageView loadFavicon(String location) {
         try {
             ImageView iv = new ImageView();
-            Image img = new Image("https://www.google.com/s2/favicons?sz=64&domain_url=" + location);
+            Image img;
+            String url = "https://www.google.com/s2/favicons?sz=64&domain_url=";
+//            System.out.println();
+            if(!location.startsWith("http") && location.contains(".")) {
+                location = "http://" + location;
+            }
+            url += location;
+            if(isValidUrl(location)) {
+                img = new Image(url);
+            } else {
+                img = new Image("https://www.google.com/s2/favicons?sz=64&domain_url=google.com");
+            }
             iv.setImage(img);
             iv.setFitHeight(15);
             iv.setFitWidth(15);
@@ -730,7 +763,11 @@ public class MainController implements Initializable {
     @FXML
     Button historyBtn;
     @FXML
+    private AnchorPane searchAnchor;
+    @FXML
     private ListView searchSuggestList;
+    @FXML
+    private TextField txtTypeUrlOnAnchor;
 
 
     class NewTab {
@@ -945,17 +982,18 @@ public class MainController implements Initializable {
 
             urlBox.setOnAction((ActionEvent e) -> {
                 goButtonPressed();
-                searchSuggestList.setVisible(false);
+                searchAnchor.setVisible(false);
             });
             urlBox.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-                searchSuggestList.setVisible(false);
+                searchAnchor.setVisible(false);
                 urlBox.textProperty().addListener((observable, oldValue, newValue) -> {
-//                System.out.println("textfield changed from: " + oldValue + " to: " + newValue);
-                    searchSuggestList.setVisible(!urlBox.getText().trim().isEmpty());
+                    txtTypeUrlOnAnchor.setText(urlBox.getText());
+                    txtTypeUrlOnAnchor.requestFocus();
+                    searchAnchor.setVisible(!urlBox.getText().trim().isEmpty());
                     showSearchSuggestList();
                 });
                 if(aBoolean) {
-                    searchSuggestList.setVisible(false);
+                    searchAnchor.setVisible(false);
                 }
             });
 
