@@ -969,6 +969,11 @@ public class MainController implements Initializable {
             goButton.setOnAction((ActionEvent e) -> {
                 goButtonPressed();
             });
+            searchBtn.setOnAction((ActionEvent e) ->{
+                urlBox.setText(txtTypeUrlOnAnchor.getText());
+                goButtonPressed();
+                searchAnchor.setVisible(true);
+            });
 
             reloadButton.setOnAction((ActionEvent e) -> {
                 myBrowser.reloadWebPage();
@@ -982,18 +987,29 @@ public class MainController implements Initializable {
 
             urlBox.setOnAction((ActionEvent e) -> {
                 goButtonPressed();
+            });
+            txtTypeUrlOnAnchor.setOnAction(e->{
+                urlBox.setText(txtTypeUrlOnAnchor.getText());
+                goButtonPressed();
                 searchAnchor.setVisible(false);
             });
+
             urlBox.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-                searchAnchor.setVisible(false);
-                urlBox.textProperty().addListener((observable, oldValue, newValue) -> {
-                    txtTypeUrlOnAnchor.setText(urlBox.getText());
-                    txtTypeUrlOnAnchor.requestFocus();
-                    searchAnchor.setVisible(!urlBox.getText().trim().isEmpty());
+                txtTypeUrlOnAnchor.setText(urlBox.getText());
+                searchAnchor.setVisible(true);
+                txtTypeUrlOnAnchor.requestFocus();
+//                txtTypeUrlOnAnchor.setText(urlBox.getText());
+            });
+
+            txtTypeUrlOnAnchor.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+//                searchAnchor.setVisible(false);
+                txtTypeUrlOnAnchor.textProperty().addListener((observable, oldValue, newValue) -> {
+                    searchAnchor.setVisible(!txtTypeUrlOnAnchor.getText().trim().isEmpty());
                     showSearchSuggestList();
                 });
                 if(aBoolean) {
                     searchAnchor.setVisible(false);
+                    urlBox.setText(txtTypeUrlOnAnchor.getText());
                 }
             });
 
