@@ -163,7 +163,7 @@
         </AnchorPane>
 
 <!--        search suggest list-->
-      <AnchorPane fx:id="searchAnchor" layoutX="158.0" layoutY="33.0" styleClass="anchor-search">
+      <AnchorPane fx:id="searchAnchor" layoutX="158.0" layoutY="33.0" styleClass="anchor-search" visible="false">
          <children>
             <HBox layoutX="10" layoutY="10" spacing="5.0">
                <children>
@@ -189,7 +189,7 @@
       </AnchorPane>
 
         <!--         list shortcut -->
-      <ScrollPane hbarPolicy="NEVER" prefWidth="45.0" style="-fx-padding: 0" styleClass="vBox" vmax="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="73.0">
+      <ScrollPane hbarPolicy="NEVER" pannable="true" prefWidth="45.0" style="-fx-padding: 0" styleClass="vBox" vmax="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="73.0">
          <content>
              <VBox fx:id="vBoxShortcut" prefHeight="500.0" prefWidth="40.0" styleClass="vBox" AnchorPane.bottomAnchor="0.0" />
 <!--                 <children>-->
@@ -204,6 +204,13 @@
         <Label fx:id="reloadLabel" styleClass="hover-label" text="Reload" AnchorPane.leftAnchor="100" AnchorPane.topAnchor="68.0" />
         <Label fx:id="backLabel" styleClass="hover-label" text="Back" AnchorPane.leftAnchor="30" AnchorPane.topAnchor="68.0" />
         <Label fx:id="forwardLabel" styleClass="hover-label" text="Forward" AnchorPane.leftAnchor="60" AnchorPane.topAnchor="68.0" />
+      <TabPane fx:id="newsTabPane" layoutY="-15.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25" tabMaxWidth="160.0" tabMinHeight="25" tabMinWidth="160.0"
+               AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="190" AnchorPane.rightAnchor="130" AnchorPane.topAnchor="160">
+        <tabs>
+          <Tab fx:id="latestTab" text="Latest news" styleClass="tab-news"/>
+          <Tab fx:id="aroundTab" text="Around you" styleClass="tab-news"/>
+        </tabs>
+      </TabPane>
 
 
     </children>

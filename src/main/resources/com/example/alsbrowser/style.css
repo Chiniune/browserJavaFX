@@ -63,7 +63,7 @@
     /*-fx-background-insets: 10.0;*/
 }
 .addUrlShortcut:hover {
-    -fx-border-color: #d066f5;
+    -fx-border-color: #7e7e7e;
 }
 /*.goButton {*/
 /*    -fx-border-color: #ecd6f1;*/
@@ -75,7 +75,7 @@
 .accountIcon {
     -fx-background-color: transparent;
     -fx-border-radius: 100%;
-    -fx-border-color: #dea5ea;
+    -fx-border-color: #d3d3d3;
     -fx-padding: 0;
 }
 .anchor-chooseAccount {
@@ -156,6 +156,78 @@
     -fx-background-color: white;
     -fx-padding: 5;
     visibility: false;
+}
+
+/* news css*/
+.anchor-news{
+    -fx-border-color: #b6b6b6;
+    -fx-border-width: 2;
+    /*-fx-border-insets: 3;*/
+    -fx-border-radius: 0 0 5 5;
+    -fx-border-style: solid outside;
+}
+.tab-news {
+    -fx-background-color: rgba(217, 217, 217, 0.75);
+    -fx-border-radius: 5;
+}
+
+/*login -------------------------------------------*/
+.background-transparent {
+    -fx-background-color: transparent;
+}
+.login-pane {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-border-style: solid inside;
+}
+.login-pane HBox {
+    -fx-border-color: #b6b6b6;
+    -fx-border-radius: 8;
+    -fx-border-style: solid inside;
+    -fx-spacing: 4;
+    -fx-padding: 5;
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+}
+.login-pane .text-field {
+    -fx-border-color: #b6b6b6;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid outside;
+    -fx-padding: 5;
+    -fx-background-color: transparent;
+    -fx-font-size: 18;
+    -fx-font-weight: 600;
+}
+.account-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-background-radius: 5;
+}
+.button-login {
+    -fx-padding: 10;
+    -fx-background-color:
+            #c3c4c4,
+            linear-gradient(#d6d6d6 50%, white 100%),
+            radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+.accountGridPane .grid-cell {
+    -fx-background-color: rgba(204, 204, 204, 0.56);
+    -fx-background-radius: 5;
+    -fx-alignment: center;
+}
+.accountGridPane .grid-cell:hover {
+    -fx-background-color: rgba(231, 231, 231, 0.58);
+    -fx-background-radius: 5;
+    -fx-alignment: center;
+}
+.accountGridPane .grid-cell Label{
+    -fx-font-size: 18;
+    -fx-font-weight: 700;
 }
 
 /*.chooseAccountListview {*/

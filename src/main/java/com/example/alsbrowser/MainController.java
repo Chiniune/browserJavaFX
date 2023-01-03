@@ -23,6 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import com.example.alsbrowser.model.AccountModel;
+import com.example.alsbrowser.model.NewsModel;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,6 +33,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
 import javafx.scene.Group;
@@ -95,6 +97,18 @@ public class MainController implements Initializable {
     private Button searchBtn;
 
     private Button addUrlShortcut;
+
+    // news
+    @FXML
+    private TabPane newsTabPane;
+    @FXML
+    private Tab latestTab;
+    @FXML
+    private Tab aroundTab;
+    private GridPane newsGridPane = new GridPane();
+    private ScrollPane latestScrollPane = new ScrollPane();
+    private ScrollPane aroundScrollPane = new ScrollPane();
+    private List<NewsModel> newsModels;
 
     public class AutoCompleteTextField extends TextField {
         /**
@@ -239,7 +253,7 @@ public class MainController implements Initializable {
     @FXML
     private void newTabFunction(ActionEvent event) {
         NewTab aTab = new NewTab();
-        aTab.setTabBackground("file:src/images/background_main.jpg");
+        aTab.setTabBackground("file:src/images/background_main.png");
         Tab tab = aTab.createTab();
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab); //take this tab to front
@@ -411,11 +425,19 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        aTab.setTabBackground("file:src/images/background_main.jpg");
+        aTab.setTabBackground("file:src/images/background_main.png");
         Tab tab = aTab.createTab();
         tab.setText("New tab");
         tabPane.getTabs().add(tab);
 
+        // news
+        showNewsList();
+        latestScrollPane.setContent(newsGridPane);
+        latestScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        aroundScrollPane.setContent(newsGridPane);
+        aroundScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        latestTab.setContent(latestScrollPane);
+        aroundTab.setContent(aroundScrollPane);
 
 //        ImageView iv2 = new ImageView();
 //        Image img2 = new Image("file:src/images/downloadIcon.png");
@@ -506,7 +528,7 @@ public class MainController implements Initializable {
                         public void handle(MouseEvent event) {
                             System.out.println("clicked on " + prevHistoryListView.getSelectionModel().getSelectedItem());
                             NewTab aTab = new NewTab();
-                            aTab.setTabBackground("file:src/images/background_main.jpg");
+                            aTab.setTabBackground("file:src/images/background_main.png");
                             aTab.goToURL(prevHistoryListView.getSelectionModel().getSelectedItem().toString());
                             Tab tab = aTab.createTab();
                             tabPane.getTabs().add(tab);
@@ -563,6 +585,51 @@ public class MainController implements Initializable {
 
     }
 
+    private void showNewsList() {
+        newsModels = new ArrayList<>(setNewsList());
+        int column = 0;
+        int row = 1;
+        try {
+            for(int i = 0; i <= newsModels.size()-1; i++){
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("newsFXML.fxml"));
+
+                AnchorPane pane = fxmlLoader.load();
+                NewsController newsController = fxmlLoader.getController();
+                newsController.setNewsData(newsModels.get(i));
+
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+                newsGridPane.add(pane, column++, row);
+                GridPane.setMargin(pane, new Insets(10, 20, 10, 20));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<NewsModel> setNewsList() {
+        List<NewsModel> list = new ArrayList<>();
+        for (int i=0; i<=10; i++) {
+            NewsModel news = new NewsModel();
+            news.setImage("news.png");
+            news.setDate("15/12/2002");
+            news.setTitle("Kpop 2022: Dấu ấn BTS, Blackpink và làn sóng các nhóm nhạc nữ Gen 4");
+            news.setContent("Trong năm 2022, BTS và Blackpink tiếp tục chứng minh đẳng cấp của hai nhóm nhạc Kpop hàng đầu. " +
+                    "Trong khi đó, hàng loạt nhóm nữ Gen 4 như IVE, NewJeans, " +
+                    "LE SSERAFIM gặt hái thành tích nhạc số ấn tượng, tạo nên “làn sóng mới. " +
+                    "Trong năm 2022, BTS và Blackpink tiếp tục chứng minh đẳng cấp của hai nhóm nhạc Kpop hàng đầu. " +
+                    "Trong khi đó, hàng loạt nhóm nữ Gen 4 như IVE, NewJeans, LE SSERAFIM gặt hái thành tích nhạc số ấn tượng, " +
+                    "tạo nên “làn sóng mới.");
+            list.add(news);
+        }
+        return list;
+    }
+
+    // suggest when search
     private void showSearchSuggestList() {
         ObservableList list = FXCollections.observableArrayList();
         searchSuggestList.getItems().clear();
@@ -969,10 +1036,10 @@ public class MainController implements Initializable {
             goButton.setOnAction((ActionEvent e) -> {
                 goButtonPressed();
             });
-            searchBtn.setOnAction((ActionEvent e) ->{
+            searchBtn.setOnAction((ActionEvent e) -> {
                 urlBox.setText(txtTypeUrlOnAnchor.getText());
                 goButtonPressed();
-                searchAnchor.setVisible(true);
+                searchAnchor.setVisible(false);
             });
 
             reloadButton.setOnAction((ActionEvent e) -> {
@@ -1007,11 +1074,18 @@ public class MainController implements Initializable {
                     searchAnchor.setVisible(!txtTypeUrlOnAnchor.getText().trim().isEmpty());
                     showSearchSuggestList();
                 });
+            });
+            searchAnchor.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+                System.out.println(aBoolean);
                 if(aBoolean) {
                     searchAnchor.setVisible(false);
                     urlBox.setText(txtTypeUrlOnAnchor.getText());
                 }
             });
+            searchAnchor.setOnMouseDragExited(mouseDragEvent -> {
+                System.out.println(mouseDragEvent.getSource());
+            });
+
 
             urlShortcut.textProperty().addListener((observable, oldValue, newValue) -> {
                 if(newTab.isSelected()){
@@ -1039,10 +1113,10 @@ public class MainController implements Initializable {
         private void backHome() {
             System.out.println("Home button pressed.");
 
-            borderPane.setCenter(null);
             urlBox.setText("");
             newTab.setText("New Tab");
             newTab.setGraphic(null);
+            newsTabPane.setVisible(true);
 //        aTab = new NewTab();
 //        aTab.setTabBackground("file:Resources/background_main.jpg");
 //        Tab tab = aTab.createTab();
@@ -1057,6 +1131,7 @@ public class MainController implements Initializable {
         }
 
         public void goButtonPressed() {
+            newsTabPane.setVisible(false);
             label.setText("");
             String urlStr;
             if (urlBox.getText() != null && !urlBox.getText().isEmpty()) {
@@ -1181,7 +1256,7 @@ public class MainController implements Initializable {
                             //action if this item is clicked on
                             menuItem.setOnAction((ActionEvent ev) -> {
                                 NewTab aTab = new NewTab();
-                                aTab.setTabBackground("file:src/images/background_main.jpg");
+                                aTab.setTabBackground("file:src/images/background_main.png");
                                 aTab.goToURL(e.getUrl());
                                 Tab tab = aTab.createTab();
                                 tab.setStyle("-fx-background-color: #d9afac;");

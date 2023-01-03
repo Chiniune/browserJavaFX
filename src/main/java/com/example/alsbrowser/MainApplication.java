@@ -19,15 +19,10 @@ public class MainApplication extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bound = screen.getVisualBounds();
-
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("loginFXML.fxml"));
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setWidth(bound.getWidth());
-        stage.setHeight(bound.getHeight());
         stage.setScene(scene);
         stage.setTitle("ALs Browser");
         stage.show();   

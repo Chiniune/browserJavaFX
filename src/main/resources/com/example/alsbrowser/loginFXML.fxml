@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="loginPane" prefHeight="500.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.alsbrowser.LoginController">
+    <children>
+        <GridPane fx:id="accountGridPane" layoutX="30.0" layoutY="100.0" prefHeight="250.0" prefWidth="451.0" styleClass="accountGridPane">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <AnchorPane layoutX="578.0" layoutY="129.0" prefHeight="330.0" prefWidth="314.0" styleClass="login-pane" AnchorPane.rightAnchor="60" AnchorPane.topAnchor="100">
+            <children>
+            <ImageView fx:id="sayhiIv" fitHeight="110.0" fitWidth="150.0" layoutX="100.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                <VBox layoutX="15.0" layoutY="130.0" prefHeight="173.0" prefWidth="286.0" spacing="15">
+                    <children>
+                        <HBox prefHeight="40.0" prefWidth="274.0" spacing="4">
+                            <children>
+                                <ImageView fx:id="emailIv" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="background-transparent">
+                                    <HBox.margin>
+                                        <Insets left="10.0" top="5.0" />
+                                    </HBox.margin>
+                                </ImageView>
+                                <TextField fx:id="email" prefHeight="38.0" prefWidth="211.0" promptText="Enter email" styleClass="text-field" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="10.0" prefHeight="38.0" prefWidth="266.0" spacing="4">
+                            <children>
+                                <ImageView fx:id="passIv" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="background-transparent">
+                                    <HBox.margin>
+                                        <Insets left="10.0" top="5.0" />
+                                    </HBox.margin>
+                                </ImageView>
+                                <PasswordField fx:id="password" prefHeight="38.0" prefWidth="211.0" promptText="Password" styleClass="text-field" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <Button fx:id="loginBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="262.0" styleClass="button-login" text="LOGIN">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="10.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
