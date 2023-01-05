@@ -40,6 +40,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -66,8 +67,13 @@ import javafx.util.Pair;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
+
 
 public class MainController implements Initializable {
+
+    @FXML
+    AnchorPane AnchorPane;
 
     @FXML
     protected TabPane tabPane;
@@ -98,17 +104,23 @@ public class MainController implements Initializable {
 
     private Button addUrlShortcut;
 
-    // news
-    @FXML
-    private TabPane newsTabPane;
-    @FXML
-    private Tab latestTab;
-    @FXML
-    private Tab aroundTab;
-    private GridPane newsGridPane = new GridPane();
+    // anchor news and search
+    private VBox homePane = new VBox();
+    private TabPane newsTabPane = new TabPane();
+    private Tab latestTab = new Tab("Latest news");
+    private Tab aroundTab = new Tab("Around me");
+    private GridPane latestGridPane = new GridPane();
+    private GridPane aroundGridPane = new GridPane();
     private ScrollPane latestScrollPane = new ScrollPane();
     private ScrollPane aroundScrollPane = new ScrollPane();
+    private HBox searchBox2 = new HBox();
+    private TextField urlbox2 = new TextField();
+    private Button searchBtn2 = new Button();
+    AnchorPane abcd = new AnchorPane();
     private List<NewsModel> newsModels;
+
+    // web zoom
+    private double webZoom;
 
     public class AutoCompleteTextField extends TextField {
         /**
@@ -255,6 +267,7 @@ public class MainController implements Initializable {
         NewTab aTab = new NewTab();
         aTab.setTabBackground("file:src/images/background_main.png");
         Tab tab = aTab.createTab();
+        aTab.borderPane.setCenter(homePane);
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab); //take this tab to front
         newTabBtnPosRight();
@@ -430,14 +443,44 @@ public class MainController implements Initializable {
         tab.setText("New tab");
         tabPane.getTabs().add(tab);
 
-        // news
-        showNewsList();
-        latestScrollPane.setContent(newsGridPane);
+
+        // Anchor news and search
+        searchBtn2.getStyleClass().add("background-transparent");
+        searchBtn2.getStyleClass().add("background-hover");
+        ImageView ivSearch = new ImageView();
+        Image imgSearch = new Image("file:src/images/search.png");
+        ivSearch.setImage(imgSearch);
+        ivSearch.setFitWidth(25);
+        ivSearch.setFitHeight(25);
+        searchBtn2.setGraphic(ivSearch);
+        searchBox2.getStyleClass().add("searchBox2");
+        urlbox2.getStyleClass().add("urlBox2");
+        urlbox2.setPromptText("🔎 enter your url here or search something");
+        searchBox2.getChildren().addAll(urlbox2, searchBtn2);
+        homePane.getStyleClass().add("homePane");
+
+        Button a = new Button("abcd ajhgfeyg afb");
+        showNewsList(latestGridPane);
+        showNewsList(aroundGridPane);
         latestScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        aroundScrollPane.setContent(newsGridPane);
         aroundScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        latestScrollPane.setContent(latestGridPane);
+        aroundScrollPane.setContent(aroundGridPane);
         latestTab.setContent(latestScrollPane);
         aroundTab.setContent(aroundScrollPane);
+        latestGridPane.getStyleClass().add("background-transparent");
+        aroundGridPane.getStyleClass().add("background-transparent");
+        latestScrollPane.getStyleClass().add("background-transparent");
+        aroundScrollPane.getStyleClass().add("background-transparent");
+//        latestTab.getStyleClass().add("tab-news");
+//        aroundTab.getStyleClass().add("tab-news");
+        newsTabPane.setTabClosingPolicy(UNAVAILABLE);
+        newsTabPane.getTabs().addAll(latestTab, aroundTab);
+        newsTabPane.getStyleClass().add("newsTabPane");
+
+        homePane.getChildren().addAll(searchBox2, newsTabPane);
+        aTab.borderPane.setCenter(homePane);
+
 
 //        ImageView iv2 = new ImageView();
 //        Image img2 = new Image("file:src/images/downloadIcon.png");
@@ -528,6 +571,7 @@ public class MainController implements Initializable {
                         public void handle(MouseEvent event) {
                             System.out.println("clicked on " + prevHistoryListView.getSelectionModel().getSelectedItem());
                             NewTab aTab = new NewTab();
+                            aTab.borderPane.setCenter(homePane);
                             aTab.setTabBackground("file:src/images/background_main.png");
                             aTab.goToURL(prevHistoryListView.getSelectionModel().getSelectedItem().toString());
                             Tab tab = aTab.createTab();
@@ -585,10 +629,10 @@ public class MainController implements Initializable {
 
     }
 
-    private void showNewsList() {
+    private void showNewsList(GridPane newsGridPane) {
         newsModels = new ArrayList<>(setNewsList());
         int column = 0;
-        int row = 1;
+        int row = 0;
         try {
             for(int i = 0; i <= newsModels.size()-1; i++){
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -780,8 +824,6 @@ public class MainController implements Initializable {
         System.out.println("You chose this file: " + file.getAbsolutePath());
         aTab.setTabBackground("file:" + file.getAbsolutePath());
     }
-
-
     public boolean isValidUrl(String url)
     {
         /* Try creating a valid URL */
@@ -793,6 +835,14 @@ public class MainController implements Initializable {
             return false;
         }
     }
+    // run function when press specific key
+//    public void keyPress() {
+//        tabPane.getScene().setOnKeyPressed(e->{
+////            if(e.getCode() == KeyCode.getKeyCode("ctrl")) {
+//                System.out.println(e.getCode());
+////            }
+//        });
+//    }
     public ImageView loadFavicon(String location) {
         try {
             ImageView iv = new ImageView();
@@ -849,7 +899,7 @@ public class MainController implements Initializable {
         private final Menu bookmarksMenu, settingsMenu, helpMenu;
         private final HBox hBox;
         private final TextField urlBox;
-        private final Button goButton;
+        private final Button favoriteButton;
         private final Button backButton;
         private final Button forwardButton;
         private final Button reloadButton;
@@ -870,7 +920,7 @@ public class MainController implements Initializable {
             helpMenu = new Menu();
             hBox = new HBox();
             urlBox = new TextField();
-            goButton = new Button();
+            favoriteButton = new Button();
             backButton = new Button();
             forwardButton = new Button();
             reloadButton = new Button();
@@ -883,6 +933,8 @@ public class MainController implements Initializable {
         public Tab createTab() {
             newTab.setText("New Tab");
             newTab.getStyleClass().add("aTab");
+
+            borderPane.setCenter(homePane);
 
             ImageView iv1 = new ImageView();
             Image img1 = new Image("file:src/images/arrow-back.png");
@@ -961,17 +1013,15 @@ public class MainController implements Initializable {
             urlBox.setPrefWidth(700);
             urlBox.getStyleClass().add("urlBox");
             ImageView iv8 = new ImageView();
-            Image img8 = new Image("file:src/images/search.png");
+            Image img8 = new Image("file:src/images/favorites.png");
             iv8.setImage(img8);
-            iv8.setFitHeight(20);
-            iv8.setFitWidth(20);
-            goButton.setGraphic(iv8);
-            goButton.getStyleClass().addAll("background-transparent","background-hover-circle");
-//            goButton.setPrefHeight(30);
-//            goButton.setPrefWidth(32);
+            iv8.setFitHeight(15);
+            iv8.setFitWidth(15);
+            favoriteButton.setGraphic(iv8);
+            favoriteButton.getStyleClass().addAll("background-transparent","background-hover-circle");
 
             hBox.getStyleClass().add("hBox-search");
-            hBox.getChildren().addAll(urlBox, goButton);
+            hBox.getChildren().addAll(urlBox, favoriteButton);
             hBox.setSpacing(5.0);
             AnchorPane.setTopAnchor(hBox, 4.0);
             AnchorPane.setLeftAnchor(hBox, 155.0);
@@ -1033,7 +1083,13 @@ public class MainController implements Initializable {
             AnchorPane.setRightAnchor(tabPane, 0.0);
 
 
-            goButton.setOnAction((ActionEvent e) -> {
+            favoriteButton.setOnAction((ActionEvent e) -> {
+                System.out.println("url added: " + urlBox.getText());
+                urlList.add(urlBox.getText());
+                setShortcutIconInList(urlBox.getText());
+            });
+            searchBtn2.setOnAction((ActionEvent e) -> {
+                urlBox.setText(urlbox2.getText());
                 goButtonPressed();
             });
             searchBtn.setOnAction((ActionEvent e) -> {
@@ -1055,37 +1111,56 @@ public class MainController implements Initializable {
             urlBox.setOnAction((ActionEvent e) -> {
                 goButtonPressed();
             });
+            urlbox2.setOnAction((ActionEvent e) -> {
+                urlBox.setText(urlbox2.getText());
+                goButtonPressed();
+            });
             txtTypeUrlOnAnchor.setOnAction(e->{
                 urlBox.setText(txtTypeUrlOnAnchor.getText());
                 goButtonPressed();
                 searchAnchor.setVisible(false);
             });
-
             urlBox.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-                txtTypeUrlOnAnchor.setText(urlBox.getText());
                 searchAnchor.setVisible(true);
+                txtTypeUrlOnAnchor.setText(urlBox.getText());
                 txtTypeUrlOnAnchor.requestFocus();
-//                txtTypeUrlOnAnchor.setText(urlBox.getText());
+                showSearchSuggestList();
             });
 
-            txtTypeUrlOnAnchor.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-//                searchAnchor.setVisible(false);
-                txtTypeUrlOnAnchor.textProperty().addListener((observable, oldValue, newValue) -> {
-                    searchAnchor.setVisible(!txtTypeUrlOnAnchor.getText().trim().isEmpty());
-                    showSearchSuggestList();
-                });
-            });
-            searchAnchor.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-                System.out.println(aBoolean);
-                if(aBoolean) {
-                    searchAnchor.setVisible(false);
-                    urlBox.setText(txtTypeUrlOnAnchor.getText());
+            AnchorPane.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+//                    String id = event.getPickResult().getIntersectedNode().getId();
+                    if (searchAnchor.isVisible()) {
+//                        System.out.println(" afgv hsf");
+                        boolean s1 = 158<event.getSceneX() && event.getSceneX()>(158 + searchAnchor.getWidth());
+                        boolean s2 = 33<event.getSceneY() && event.getSceneY()>(33 + searchAnchor.getHeight());
+//                        boolean s = s1 && s2;
+                        System.out.println(event.getSceneX() + " : " + searchAnchor.getWidth()+158);
+                        System.out.println(event.getSceneY() + " : " + searchAnchor.getHeight()+33);
+                        System.out.println(s1 + ":" + s2);
+                        if (!s1 || !s2) {
+                            System.out.println("acd");
+                        } else {
+                            urlBox.setText(txtTypeUrlOnAnchor.getText());
+                            searchAnchor.setVisible(false);
+                        }
+                    }
+
+//
                 }
             });
-            searchAnchor.setOnMouseDragExited(mouseDragEvent -> {
-                System.out.println(mouseDragEvent.getSource());
-            });
 
+
+
+//
+//            txtTypeUrlOnAnchor.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+////                searchAnchor.setVisible(false);
+////                txtTypeUrlOnAnchor.textProperty().addListener((observable, oldValue, newValue) -> {
+////                    searchAnchor.setVisible(!txtTypeUrlOnAnchor.getText().trim().isEmpty());
+//
+////                });
+//            });
 
             urlShortcut.textProperty().addListener((observable, oldValue, newValue) -> {
                 if(newTab.isSelected()){
@@ -1114,6 +1189,7 @@ public class MainController implements Initializable {
             System.out.println("Home button pressed.");
 
             urlBox.setText("");
+            borderPane.setCenter(homePane);
             newTab.setText("New Tab");
             newTab.setGraphic(null);
             newsTabPane.setVisible(true);
@@ -1259,7 +1335,8 @@ public class MainController implements Initializable {
                                 aTab.setTabBackground("file:src/images/background_main.png");
                                 aTab.goToURL(e.getUrl());
                                 Tab tab = aTab.createTab();
-                                tab.setStyle("-fx-background-color: #d9afac;");
+                                aTab.borderPane.setCenter(homePane);
+//                                tab.setStyle("-fx-background-color: #d9afac;");
                                 tabPane.getTabs().add(tab);
                                 tabPane.getSelectionModel().select(tab); //take this tab to front
                                 newTabBtnPosRight();
@@ -1287,6 +1364,14 @@ public class MainController implements Initializable {
                 getChildren().add(browser); //add the web view to the scene
             }
 
+            public void webZoomIn() {
+                webZoom+=0.25;
+                browser.setZoom(webZoom);
+            }
+            public void webZoomOut() {
+                webZoom-=0.25;
+                browser.setZoom(webZoom);
+            }
 
             //pop up control
             private void createContextMenu(WebView webView) {

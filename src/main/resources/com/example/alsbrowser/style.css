@@ -40,6 +40,7 @@
     -fx-padding: 0 8 0 8;
     -fx-border-color: #e1e1e1;
     -fx-border-width: 2;
+    -fx-alignment: center;
 }
 .vBox {
     /*-fx-pref-width: 40.0;*/
@@ -158,7 +159,7 @@
     visibility: false;
 }
 
-/* news css*/
+/* news css ---------------------------------------------------*/
 .anchor-news{
     -fx-border-color: #b6b6b6;
     -fx-border-width: 2;
@@ -166,15 +167,51 @@
     -fx-border-radius: 0 0 5 5;
     -fx-border-style: solid outside;
 }
-.tab-news {
-    -fx-background-color: rgba(217, 217, 217, 0.75);
-    -fx-border-radius: 5;
+.homePane {
+    -fx-background-color: transparent;
+    -fx-padding: 100 110 0 110;
+    -fx-spacing: 100.0;
+    -fx-border-width: 2;
+    -fx-alignment: center;
+}
+.searchBox2{
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-border-width: 2;
+    -fx-border-color: #b6b6b6;
+    -fx-spacing: 4;
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-pref-width: 635;
+    -fx-max-width: 635;
+}
+.urlBox2 {
+    -fx-padding: 5 10 5 20;
+    -fx-pref-width: 600;
+    -fx-pref-height: 50;
+    -fx-font-size: 18;
+    -fx-background-color: transparent;
+}
+.newsTabPane {
+    -fx-tab-max-height: 40;
+    -fx-tab-max-width: 150;
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
+}
+.newsTabPane .tab-header-background{
+    -fx-background-color: transparent;
+}
+.newsTabPane .tab:selected {
+    -fx-background-color: rgba(210, 210, 210, 0.75);
+    -fx-border-width: 0;
+}
+.newsTabPane .tab {
+    -fx-background-color: rgba(232, 231, 231, 0.75);
+    -fx-border-radius: 8;
+    -fx-pref-width: 200;
 }
 
 /*login -------------------------------------------*/
-.background-transparent {
-    -fx-background-color: transparent;
-}
 .login-pane {
     -fx-border-color: black;
     -fx-border-width: 2;

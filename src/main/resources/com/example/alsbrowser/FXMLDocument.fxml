@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.alsbrowser.MainController">
+<AnchorPane fx:id="AnchorPane" prefHeight="448.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.alsbrowser.MainController">
     <children>
         <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabMaxHeight="25" tabMaxWidth="120.0" tabMinHeight="25" tabMinWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Button fx:id="newTabBtn" layoutY="60.0" mnemonicParsing="false" onAction="#newTabFunction" prefHeight="15.0" prefWidth="23.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="5.0">
@@ -51,8 +51,11 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" text="How to" />
                                 <MenuItem mnemonicParsing="false" text="Contact us" />
+                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
                             </items>
                         </Menu>
+<!--                  <MenuItem mnemonicParsing="false" onAction="#webZoomIn" text="Zoom in +" />-->
+<!--                  <MenuItem mnemonicParsing="false" onAction="#webZoomOut" text="Zoom out -" />-->
                     </items>
                     <graphic>
                         <Button fx:id="settingIcon" mnemonicParsing="false">
@@ -167,7 +170,7 @@
          <children>
             <HBox layoutX="10" layoutY="10" spacing="5.0">
                <children>
-                  <TextField fx:id="txtTypeUrlOnAnchor" prefWidth="705.0" style="-fx-border-width: 0">
+                  <TextField fx:id="txtTypeUrlOnAnchor" prefWidth="705.0">
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </padding>
@@ -180,7 +183,7 @@
                   </Button>
                </children>
             </HBox>
-              <ListView fx:id="searchSuggestList" layoutY="40.0" prefWidth="720.0" styleClass="searchSuggestList">
+              <ListView fx:id="searchSuggestList" layoutY="50.0" prefWidth="720.0" prefHeight="300" styleClass="searchSuggestList">
                   <padding>
                       <Insets left="10.0" />
                   </padding>
@@ -204,13 +207,14 @@
         <Label fx:id="reloadLabel" styleClass="hover-label" text="Reload" AnchorPane.leftAnchor="100" AnchorPane.topAnchor="68.0" />
         <Label fx:id="backLabel" styleClass="hover-label" text="Back" AnchorPane.leftAnchor="30" AnchorPane.topAnchor="68.0" />
         <Label fx:id="forwardLabel" styleClass="hover-label" text="Forward" AnchorPane.leftAnchor="60" AnchorPane.topAnchor="68.0" />
-      <TabPane fx:id="newsTabPane" layoutY="-15.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25" tabMaxWidth="160.0" tabMinHeight="25" tabMinWidth="160.0"
-               AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="190" AnchorPane.rightAnchor="130" AnchorPane.topAnchor="160">
-        <tabs>
-          <Tab fx:id="latestTab" text="Latest news" styleClass="tab-news"/>
-          <Tab fx:id="aroundTab" text="Around you" styleClass="tab-news"/>
-        </tabs>
-      </TabPane>
+
+<!--        <TabPane fx:id="newsTabPane" layoutY="-15.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25" tabMaxWidth="160.0" tabMinHeight="25" tabMinWidth="160.0"-->
+<!--               AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="190" AnchorPane.rightAnchor="130" AnchorPane.topAnchor="160">-->
+<!--        <tabs>-->
+<!--          <Tab fx:id="latestTab" text="Latest news" styleClass="tab-news"/>-->
+<!--          <Tab fx:id="aroundTab" text="Around you" styleClass="tab-news"/>-->
+<!--        </tabs>-->
+<!--      </TabPane>-->
 
 
     </children>
