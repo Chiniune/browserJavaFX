@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="448.0" prefWidth="939.0" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.browseral.controllers.MainController">
+    <children>
+        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabMaxHeight="25" tabMaxWidth="120.0"
+                 tabMinHeight="25" tabMinWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        <Button fx:id="newTabBtn" layoutY="20.0" mnemonicParsing="false" onAction="#newTabFunction" prefHeight="15.0"
+                prefWidth="23.0" text="+" textAlignment="CENTER" AnchorPane.leftAnchor="130.0"
+                AnchorPane.topAnchor="-5.0">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+            <styleClass>
+                <String fx:value="background-hover-circle"/>
+                <String fx:value="background-transparent"/>
+            </styleClass>
+        </Button>
+
+        <!--        menu bar -->
+        <MenuBar prefHeight="38.0" prefWidth="130.0" styleClass="background-transparent" AnchorPane.rightAnchor="10.0"
+                 AnchorPane.topAnchor="28.5">
+            <menus>
+                <Menu mnemonicParsing="false">
+                    <graphic>
+                        <Button fx:id="historyBtn" onMouseClicked="#historyBtnFunction"
+                                styleClass="background-hover"/> <!-- text="History" -->
+                    </graphic>
+                </Menu>
+                <Menu mnemonicParsing="false">
+                    <items>
+                        <Menu mnemonicParsing="false" text="Search Engine">
+                            <items>
+                                <CheckMenuItem fx:id="googleMenuItm" mnemonicParsing="false" onAction="#setEngine"
+                                               text="Google"/>
+                                <CheckMenuItem fx:id="bingMenuItm" mnemonicParsing="false" onAction="#setEngine"
+                                               text="Bing"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Start Page">
+                            <items>
+                                <Menu mnemonicParsing="false" text="Set by theme">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false">
+                                            <graphic>
+                                                <ColorPicker fx:id="colorPicker"/>
+                                            </graphic>
+                                        </MenuItem>
+                                    </items>
+                                </Menu>
+                                <MenuItem fx:id="homePageBackgroundImg" mnemonicParsing="false"
+                                          onAction="#backgroundImgFunction" text="Set by image"/>
+                                <MenuItem mnemonicParsing="false" text="Set by website"/>
+                                <MenuItem mnemonicParsing="false" text="Keep blank"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help"> <!--text="Help" -->
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="How to"/>
+                                <MenuItem mnemonicParsing="false" text="Contact us"/>
+                            </items>
+                        </Menu>
+                    </items>
+                    <graphic>
+                        <Button fx:id="settingIcon" mnemonicParsing="false">
+                            <styleClass>
+                                <String fx:value="background-transparent"/>
+                                <String fx:value="background-hover"/>
+                            </styleClass>
+                        </Button>
+                    </graphic>
+                </Menu>
+                <Menu mnemonicParsing="false">
+                    <graphic>
+                        <Circle fx:id="accountIcon" onMouseClicked="#accountIconFunc" radius="13.0" stroke="red"
+                                strokeType="INSIDE" styleClass="background-hover"/>
+                    </graphic>
+
+                </Menu>
+            </menus>
+            <padding>
+                <Insets top="6.0"/>
+            </padding>
+        </MenuBar>
+
+
+        <!--        history pane-->
+        <AnchorPane fx:id="historyAnchorPane" prefHeight="200.0" prefWidth="400.0" AnchorPane.rightAnchor="60.0"
+                    AnchorPane.topAnchor="70.0" visible="false">
+            <children>
+                <Accordion AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <panes>
+                        <TitledPane animated="false" text="This session">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
+                                    <children>
+                                        <ListView fx:id="historyList" prefHeight="200.0" prefWidth="400.0"/>
+                                        <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                 AnchorPane.topAnchor="0.0">
+                                            <menus>
+                                                <Menu fx:id="historyMenu"
+                                                      mnemonicParsing="false"/> <!--  text="History"-->
+                                            </menus>
+                                        </MenuBar>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Previous History">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
+                                    <children>
+                                        <DatePicker fx:id="startDatePicker" promptText="Start date"
+                                                    style="-fx-border-color: lawngreen;" AnchorPane.leftAnchor="0.0"
+                                                    AnchorPane.rightAnchor="0.0"/>
+                                        <DatePicker fx:id="endDatePicker" promptText="End date"
+                                                    style="-fx-border-color: lawngreen;" AnchorPane.leftAnchor="0.0"
+                                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0"/>
+                                        <ListView fx:id="prevHistoryListView" prefHeight="200.0" prefWidth="400.0"
+                                                  AnchorPane.topAnchor="50.0"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Clean History">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
+                                    <children>
+                                        <DatePicker fx:id="delStartDatePicker" promptText="Start date"
+                                                    style="-fx-border-color: hotpink;" AnchorPane.leftAnchor="0.0"
+                                                    AnchorPane.rightAnchor="0.0"/>
+                                        <DatePicker fx:id="delEndDatePicker" layoutX="10.0" layoutY="10.0"
+                                                    promptText="End date" style="-fx-border-color: hotpink;"
+                                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                    AnchorPane.topAnchor="20.0"/>
+                                        <Button fx:id="delHistButton" mnemonicParsing="false"
+                                                onAction="#deleteHistoryFunction" text="Delete"
+                                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                AnchorPane.topAnchor="50.0"/>
+                                        <Label fx:id="delHistLabel" alignment="CENTER" text="Permanently delete history"
+                                               textFill="#2c2a2a" AnchorPane.leftAnchor="0.0"
+                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+            </children>
+        </AnchorPane>
+
+        <!--        choose account pane-->
+        <AnchorPane fx:id="chooseAccountPane" layoutX="700.0" layoutY="80.0" prefWidth="270.0" visible="false"
+                    styleClass="anchor-chooseAccount" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+            <children>
+                <Label prefHeight="100.0" prefWidth="270.0" styleClass="label-radius"/>
+                <Label layoutY="65.0" prefHeight="44.0" prefWidth="270.0"
+                       style="-fx-background-radius: 20 20 0 0; -fx-background-color: white"/>
+                <Circle fx:id="accountIcon2" layoutX="135.0" layoutY="72.0" radius="30.0" stroke="BLACK"
+                        strokeType="INSIDE"/>
+                <Label fx:id="fullname" alignment="CENTER" layoutY="100.0" prefHeight="27.0" prefWidth="270.0"
+                       style="-fx-font-family: Arial Rounded MT Bold; -fx-font-weight: 700;" text="Vo Thi Trinh"
+                       textAlignment="CENTER" textFill="#101010">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="email" alignment="CENTER" layoutY="120.0" prefHeight="20.0" prefWidth="270.0"
+                       text="vttrinh20it1@vku.udn.vn" textAlignment="CENTER" textFill="#8d8a8a"/>
+                <Separator layoutY="148.0" opacity="0.3" prefHeight="1.0" prefWidth="270.0"/>
+                <Label layoutX="5.0" layoutY="156.0" text="Other profiles" textFill="#c4c3c3">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+                <VBox fx:id="vBoxAccountList" layoutY="181.0" prefHeight="139.0" prefWidth="270.0"
+                      styleClass="vBox-chooseAccount"/>
+            </children>
+        </AnchorPane>
+
+
+        <!--        suggest listview -->
+        <ListView fx:id="searchSuggestList" layoutX="157" layoutY="66.0" prefHeight="300" prefWidth="720.0"
+                  styleClass="searchSuggestList" visible="false">
+            <padding>
+                <Insets left="10.0"/>
+            </padding>
+        </ListView>
+
+        <!--         list shortcut -->
+        <ScrollPane hbarPolicy="NEVER" pannable="true" prefWidth="45.0" style="-fx-padding: 0" styleClass="vBox"
+                    vmax="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="71.0">
+            <content>
+                <VBox fx:id="vBoxShortcut" prefHeight="500.0" prefWidth="40.0" styleClass="vBox"
+                      AnchorPane.bottomAnchor="0.0"/>
+                <!--                 <children>-->
+                <!--                 </children>-->
+                <!--             </VBox>-->
+            </content>
+        </ScrollPane>
+
+        <!--        lable hover-->
+        <Label fx:id="homeLabel" styleClass="hover-label" text="Home" AnchorPane.leftAnchor="130"
+               AnchorPane.topAnchor="68.0"/>
+        <Label fx:id="reloadLabel" styleClass="hover-label" text="Reload" AnchorPane.leftAnchor="100"
+               AnchorPane.topAnchor="68.0"/>
+        <Label fx:id="backLabel" styleClass="hover-label" text="Back" AnchorPane.leftAnchor="30"
+               AnchorPane.topAnchor="68.0"/>
+        <Label fx:id="forwardLabel" styleClass="hover-label" text="Forward" AnchorPane.leftAnchor="60"
+               AnchorPane.topAnchor="68.0"/>
+
+    </children>
+</AnchorPane>
